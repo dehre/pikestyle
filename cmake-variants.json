@@ -1,0 +1,32 @@
+{
+    "buildType": {
+        "default": "debug",
+        "choices": {
+            "debug": {
+                "short": "Debug",
+                "long": "Emit debug information",
+                "buildType": "DEBUG"
+            },
+            "release": {
+                "short": "Release",
+                "long": "Optimize generated code",
+                "buildType": "RELEASE"
+            },
+            "asan": {
+                "short": "Asan",
+                "long": "Instrument with Address Sanitizer",
+                "buildType": "ASAN"
+            },
+            "ubsan": {
+                "short": "UBsan",
+                "long": "Instrument with Undefined Behaviour Sanitizer",
+                "buildType": "UBSAN"
+            },
+            "tsan": {
+                "short": "Tsan",
+                "long": "Instrument with Thread Sanitizer",
+                "buildType": "TSAN"
+            }
+        }
+    }
+}

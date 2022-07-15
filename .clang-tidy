@@ -1,0 +1,8 @@
+HeaderFilterRegex: ".*"
+Checks: "
+    bugprone-*,
+    clang-analyzer-*,
+    misc-*,
+    readability-*,
+    -readability-magic-numbers,
+    -misc-no-recursion"
