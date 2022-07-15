@@ -10,6 +10,10 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
+add_executable(vec_tests vec_tests.cc)
+target_link_libraries(vec_tests gtest_main vec_lib)
+target_include_directories(vec_tests PUBLIC ${PROJECT_SOURCE_DIR}/include)
+
 add_executable(modern_test modern_test.cc)
 target_link_libraries(modern_test gtest_main modern_lib)
 target_include_directories(modern_test PUBLIC ${PROJECT_SOURCE_DIR}/include)
@@ -19,5 +23,6 @@ target_link_libraries(noerr_test gtest_main noerr_lib)
 target_include_directories(noerr_test PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
 include(GoogleTest)
+gtest_discover_tests(vec_tests)
 gtest_discover_tests(modern_test)
 gtest_discover_tests(noerr_test)
