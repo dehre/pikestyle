@@ -1,6 +1,10 @@
 add_library(vec_lib vec/vec.c)
 target_include_directories(vec_lib PUBLIC ${PROJECT_SOURCE_DIR}/include)
-# target_link_libraries(modern_lib PRIVATE some_other_lib)
+# target_link_libraries(vec_lib PRIVATE some_other_lib)
+
+add_library(llist_lib llist/llist.c)
+target_include_directories(llist_lib PUBLIC ${PROJECT_SOURCE_DIR}/include)
+# target_link_libraries(llist_lib PRIVATE some_other_lib)
 
 add_library(modern_lib modern/lib.c)
 target_include_directories(modern_lib PUBLIC ${PROJECT_SOURCE_DIR}/include)
