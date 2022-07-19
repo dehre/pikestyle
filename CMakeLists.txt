@@ -46,7 +46,7 @@ add_subdirectory(src)
 # Build the Executable
 # 
 add_executable(main apps/main.c)
-target_link_libraries(main PUBLIC vec_lib llist_lib modern_lib noerr_lib)
+target_link_libraries(main PUBLIC vec_lib llist_lib htable_lib modern_lib noerr_lib)
 
 # 
 # Build Tests
