@@ -40,7 +40,8 @@ TEST(htable, htable_insert)
     htable_insert(ht, (struct HTableItem){.key = "%@whatsthat@", .val = 3});
     EXPECT_EQ(htable_len(ht), 5);
 
-    htable_destroy(ht);
+    htable_destroy(&ht);
+    EXPECT_EQ(ht, nullptr);
 }
 
 TEST(htable, htable_search)
@@ -72,7 +73,7 @@ TEST(htable, htable_search)
     EXPECT_EQ(htable_itemIsNone(htable_search(ht, "@whatsthat@")), true);
 
     EXPECT_EQ(htable_len(ht), 5);
-    htable_destroy(ht);
+    htable_destroy(&ht);
 }
 
 TEST(htable, htable_remove)
@@ -105,5 +106,5 @@ TEST(htable, htable_remove)
     EXPECT_EQ(htable_remove(ht, "ORANGES").val, 12);
 
     EXPECT_EQ(htable_len(ht), 0);
-    htable_destroy(ht);
+    htable_destroy(&ht);
 }

@@ -44,9 +44,8 @@ struct HTableItem htable_remove(struct HTable *ht, HTableKey key);
 /* Call fn on each element in the hash table */
 void htable_traverse(struct HTable *ht, void *(*fn)(struct HTableItem item));
 
-// TODO LORIS: take pointer to pointer as param
 /* Delete the hash table (deallocate its memory) */
-void htable_destroy(struct HTable *ht);
+void htable_destroy(struct HTable **ht);
 
 /* Hash the key; the fn is exported for testing purposes only */
 size_t htable_hash(const char *key);

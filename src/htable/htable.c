@@ -32,12 +32,12 @@ bool htable_itemIsNone(struct HTableItem item)
 
 size_t htable_len(struct HTable *ht)
 {
-    return ht__len;
+    return ht == NULL ? 0 : ht__len;
 }
 
 size_t htable_cap(struct HTable *ht)
 {
-    return ht__cap;
+    return ht == NULL ? 0 : ht__cap;
 }
 
 struct HTable *htable_new(void)
@@ -51,7 +51,7 @@ struct HTable *htable_new(void)
 
 void htable_insert(struct HTable *ht, struct HTableItem item)
 {
-    if (ht__len >= ht__cap)
+    if (ht == NULL || ht__len >= ht__cap)
     {
         return;
     }
@@ -64,6 +64,10 @@ void htable_insert(struct HTable *ht, struct HTableItem item)
 
 struct HTableItem htable_search(struct HTable *ht, HTableKey key)
 {
+    if (ht == NULL)
+    {
+        return HTABLE_ITEM_NONE;
+    }
     assert(strlen(key) > 0);
     size_t start_idx = htable_hash(key);
     size_t idx = findNextItemByKey(ht, key, start_idx);
@@ -76,6 +80,10 @@ struct HTableItem htable_search(struct HTable *ht, HTableKey key)
 
 struct HTableItem htable_remove(struct HTable *ht, HTableKey key)
 {
+    if (ht == NULL)
+    {
+        return HTABLE_ITEM_NONE;
+    }
     assert(strlen(key) > 0);
     size_t start_idx = htable_hash(key);
     size_t idx = findNextItemByKey(ht, key, start_idx);
@@ -89,11 +97,14 @@ struct HTableItem htable_remove(struct HTable *ht, HTableKey key)
     return item;
 }
 
-void htable_destroy(struct HTable *ht)
+void htable_destroy(struct HTable **ht)
 {
-    free(ht__data);
-    ht__len = 0;
-    ht__cap = 0;
+    if (ht == NULL)
+    {
+        return;
+    }
+    free((*ht)->data);
+    *ht = NULL;
 }
 
 size_t htable_hash(const char *key)
