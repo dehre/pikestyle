@@ -9,7 +9,7 @@ struct LListNode
     struct LListNode *next;
 };
 
-static LListItem drain_node(struct LListNode *node);
+static LListItem drainNode(struct LListNode *node);
 
 LListItem llist_item(struct LListNode *node)
 {
@@ -77,12 +77,24 @@ void llist_push(struct LListNode **head_ptr, LListItem item)
         *head_ptr = new_node;
         return;
     }
-    struct LListNode *tail = llist_tail(*head_ptr);
-    tail->next = new_node;
-    new_node->prev = tail;
+    struct LListNode *old_head = *head_ptr;
+    new_node->next = old_head;
+    old_head->prev = new_node;
+    *head_ptr = new_node;
 }
 
 LListItem llist_pop(struct LListNode **head_ptr)
+{
+    if (*head_ptr == NULL)
+    {
+        return LLIST_ITEM_NONE;
+    }
+    struct LListNode *old_head = *head_ptr;
+    *head_ptr = old_head->next;
+    return drainNode(old_head);
+}
+
+LListItem llist_shift(struct LListNode **head_ptr)
 {
     if (*head_ptr == NULL)
     {
@@ -92,21 +104,10 @@ LListItem llist_pop(struct LListNode **head_ptr)
     if (tail == *head_ptr)
     {
         *head_ptr = NULL;
-        return drain_node(tail);
+        return drainNode(tail);
     }
     tail->prev->next = NULL;
-    return drain_node(tail);
-}
-
-LListItem llist_shift(struct LListNode **head_ptr)
-{
-    if (*head_ptr == NULL)
-    {
-        return LLIST_ITEM_NONE;
-    }
-    struct LListNode *old_head = *head_ptr;
-    *head_ptr = old_head->next;
-    return drain_node(old_head);
+    return drainNode(tail);
 }
 
 void llist_destroy(struct LListNode **head_ptr)
@@ -121,7 +122,7 @@ void llist_destroy(struct LListNode **head_ptr)
     *head_ptr = NULL;
 }
 
-static LListItem drain_node(struct LListNode *node)
+static LListItem drainNode(struct LListNode *node)
 {
     LListItem item = node->item;
     free(node);

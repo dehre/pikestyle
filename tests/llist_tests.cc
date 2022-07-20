@@ -24,25 +24,24 @@ TEST(llist, llist_push)
     llist_push(&head, 60);
 
     EXPECT_EQ(llist_len(head), 5);
-    EXPECT_EQ(llist_item(head), 12);
+    EXPECT_EQ(llist_item(head), 60);
     EXPECT_EQ(llist_prev(head), nullptr);
-    EXPECT_EQ(llist_item(llist_next(head)), 24);
 
     struct LListNode *curr = llist_next(head);
-    EXPECT_EQ(llist_item(curr), 24);
+    EXPECT_EQ(llist_item(curr), 48);
     curr = llist_next(curr);
     EXPECT_EQ(llist_item(curr), 36);
     curr = llist_next(curr);
-    EXPECT_EQ(llist_item(curr), 48);
+    EXPECT_EQ(llist_item(curr), 24);
     curr = llist_next(curr);
-    EXPECT_EQ(llist_item(curr), 60);
+    EXPECT_EQ(llist_item(curr), 12);
     curr = llist_next(curr);
     EXPECT_EQ(llist_item(curr), LLIST_ITEM_NONE);
 
     struct LListNode *tail = llist_tail(head);
-    EXPECT_EQ(llist_item(tail), 60);
+    EXPECT_EQ(llist_item(tail), 12);
     EXPECT_EQ(llist_next(tail), nullptr);
-    EXPECT_EQ(llist_item(llist_prev(tail)), 48);
+    EXPECT_EQ(llist_item(llist_prev(tail)), 24);
 
     llist_destroy(&head);
 }

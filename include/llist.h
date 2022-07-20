@@ -30,16 +30,13 @@ size_t llist_len(struct LListNode *head);
 /* Create a new doubly linked list */
 struct LListNode *llist_new(LListItem item);
 
-// TODO LORIS: append to front
-/* Append an item to the back of the list */
+/* Append an item to the front of the list and update list head */
 void llist_push(struct LListNode **head_ptr, LListItem item);
 
-// TODO LORIS: remove from front
-/* Remove a node from the back of the list */
+/* Remove a node from the front of the list and update list head */
 LListItem llist_pop(struct LListNode **head_ptr);
 
-// TODO LORIS: remove from back
-/* Remove a node from the front of the list and update list head */
+/* Remove a node from the back of the list */
 LListItem llist_shift(struct LListNode **head_ptr);
 
 // TODO LORIS: implementation
