@@ -36,6 +36,5 @@ void bst_balance(struct BSTNode **root);
 /* Call fn on each element in the tree */
 void bst_traverse(struct BSTNode *root, void *(*fn)(BSTItem item));
 
-// TODO LORIS: take a pointer to a pointer as param
 /* Delete the binary search tree (deallocate its memory) */
-void bst_destroy(struct BSTNode *root);
+void bst_destroy(struct BSTNode **root);

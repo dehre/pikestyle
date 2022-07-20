@@ -14,21 +14,17 @@ static struct BSTNode *findNodeWithMinItem(struct BSTNode *root);
 
 BSTItem bst_item(struct BSTNode *node)
 {
-    if (node == NULL)
-    {
-        return BST_ITEM_NONE;
-    }
-    return node->item;
+    return node == NULL ? BST_ITEM_NONE : node->item;
 }
 
 struct BSTNode *bst_left(struct BSTNode *node)
 {
-    return node->left;
+    return node == NULL ? NULL : node->left;
 }
 
 struct BSTNode *bst_right(struct BSTNode *node)
 {
-    return node->right;
+    return node == NULL ? NULL : node->right;
 }
 
 struct BSTNode *bst_new(BSTItem item)
@@ -115,21 +111,22 @@ struct BSTNode *bst_remove(struct BSTNode *root, BSTItem item)
     return root;
 }
 
-void bst_destroy(struct BSTNode *root)
+void bst_destroy(struct BSTNode **root)
 {
-    if (root == NULL)
+    if (*root == NULL)
     {
         return;
     }
-    if (root->left != NULL)
+    if ((*root)->left != NULL)
     {
-        bst_destroy(root->left);
+        bst_destroy(&((*root)->left));
     }
-    if (root->right != NULL)
+    if ((*root)->right != NULL)
     {
-        bst_destroy(root->right);
+        bst_destroy(&((*root)->right));
     }
-    free(root);
+    free(*root);
+    *root = NULL;
 }
 
 static struct BSTNode *findNodeWithMinItem(struct BSTNode *root)

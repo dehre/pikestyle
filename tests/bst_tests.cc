@@ -12,6 +12,9 @@ TEST(bst, bst_new)
     EXPECT_EQ(bst_item(root), 12);
     EXPECT_EQ(bst_left(root), nullptr);
     EXPECT_EQ(bst_right(root), nullptr);
+
+    bst_destroy(&root);
+    EXPECT_EQ(root, nullptr);
 }
 
 TEST(bst, bst_insert)
@@ -34,7 +37,7 @@ TEST(bst, bst_insert)
     EXPECT_EQ(bst_left(newNode), nullptr);
     EXPECT_EQ(bst_right(newNode), nullptr);
 
-    bst_destroy(root);
+    bst_destroy(&root);
 }
 
 TEST(bst, bst_search)
@@ -59,7 +62,7 @@ TEST(bst, bst_search)
 
     EXPECT_EQ(bst_item(bst_search(root, 55)), BST_ITEM_NONE);
 
-    bst_destroy(root);
+    bst_destroy(&root);
 }
 
 TEST(bst, bst_remove)
@@ -91,5 +94,5 @@ TEST(bst, bst_remove)
     EXPECT_EQ(bst_item(bst_search(root, 36)), BST_ITEM_NONE);
     EXPECT_EQ(bst_item(root), 44);
 
-    bst_destroy(root);
+    bst_destroy(&root);
 }
