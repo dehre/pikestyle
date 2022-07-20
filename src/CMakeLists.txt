@@ -10,6 +10,10 @@ add_library(htable_lib htable/htable.c)
 target_include_directories(htable_lib PUBLIC ${PROJECT_SOURCE_DIR}/include)
 # target_link_libraries(htable_lib PRIVATE some_other_lib)
 
+add_library(bst_lib bst/bst.c)
+target_include_directories(bst_lib PUBLIC ${PROJECT_SOURCE_DIR}/include)
+# target_link_libraries(bst_lib PRIVATE some_other_lib)
+
 add_library(modern_lib modern/lib.c)
 target_include_directories(modern_lib PUBLIC ${PROJECT_SOURCE_DIR}/include)
 # target_link_libraries(modern_lib PRIVATE some_other_lib)

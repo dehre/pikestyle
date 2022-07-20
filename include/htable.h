@@ -1,3 +1,7 @@
+/*
+ * Hash Table, a data structure used to store keys/value pairs.
+ */
+
 #pragma once
 
 #include <stdbool.h>
@@ -40,6 +44,7 @@ struct HTableItem htable_remove(struct HTable *ht, HTableKey key);
 /* Call fn on each element in the hash table */
 void htable_traverse(struct HTable *ht, void *(*fn)(struct HTableItem item));
 
+// TODO LORIS: take pointer to pointer as param
 /* Delete the hash table (deallocate its memory) */
 void htable_destroy(struct HTable *ht);
 

@@ -37,5 +37,6 @@ VecItem vec_shift(struct Vec *vec);
 /* Call fn on each element in the vector */
 void vec_traverse(struct Vec *vec, void *(*fn)(VecItem item));
 
+// TODO LORIS: take pointer to pointer as param
 /* Delete the vector (deallocate its memory) */
 void vec_destroy(struct Vec *vec);
