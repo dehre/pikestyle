@@ -12,6 +12,7 @@ TEST(vec, vec_new)
     EXPECT_EQ(vec_len(vec), 0);
     EXPECT_EQ(vec_cap(vec), 5);
     vec_destroy(&vec);
+    EXPECT_EQ(vec, nullptr);
 }
 
 TEST(vec, vec_push)

@@ -105,6 +105,10 @@ VecItem vec_shift(struct Vec *vec)
 
 void vec_destroy(struct Vec **vec)
 {
+    if (*vec == NULL)
+    {
+        return;
+    }
     free((*vec)->data);
     free(*vec);
     *vec = NULL;
