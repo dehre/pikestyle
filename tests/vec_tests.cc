@@ -11,7 +11,7 @@ TEST(vec, vec_new)
     EXPECT_NE(vec, nullptr);
     EXPECT_EQ(vec_len(vec), 0);
     EXPECT_EQ(vec_cap(vec), 5);
-    vec_destroy(vec);
+    vec_destroy(&vec);
 }
 
 TEST(vec, vec_push)
@@ -33,7 +33,7 @@ TEST(vec, vec_push)
     EXPECT_EQ(vec_cap(vec), 4);
     EXPECT_EQ(vec_nth(vec, 3), VEC_ITEM_NONE);
 
-    vec_destroy(vec);
+    vec_destroy(&vec);
 }
 
 TEST(vec, vec_pop)
@@ -78,7 +78,7 @@ TEST(vec, vec_pop)
     EXPECT_EQ(vec_len(vec), 0);
     EXPECT_EQ(vec_cap(vec), 1);
 
-    vec_destroy(vec);
+    vec_destroy(&vec);
 }
 
 TEST(vec, vec_shift)
@@ -123,5 +123,5 @@ TEST(vec, vec_shift)
     EXPECT_EQ(vec_len(vec), 0);
     EXPECT_EQ(vec_cap(vec), 1);
 
-    vec_destroy(vec);
+    vec_destroy(&vec);
 }

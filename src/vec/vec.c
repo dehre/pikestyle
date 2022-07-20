@@ -17,17 +17,17 @@ struct Vec
 
 size_t vec_len(const struct Vec *vec)
 {
-    return vec__len;
+    return vec == NULL ? 0 : vec__len;
 }
 
 size_t vec_cap(const struct Vec *vec)
 {
-    return vec__cap;
+    return vec == NULL ? 0 : vec__cap;
 }
 
 VecItem vec_nth(const struct Vec *vec, size_t nth)
 {
-    if (vec__len == 0 || nth >= vec__len)
+    if (vec == NULL || vec__len == 0 || nth >= vec__len)
     {
         return VEC_ITEM_NONE;
     }
@@ -46,6 +46,10 @@ struct Vec *vec_new(size_t cap)
 
 void vec_push(struct Vec *vec, VecItem item)
 {
+    if (vec == NULL)
+    {
+        return;
+    }
     /* Double capacity if it's equal to the length */
     if (vec__len >= vec__cap)
     {
@@ -59,7 +63,7 @@ void vec_push(struct Vec *vec, VecItem item)
 
 VecItem vec_pop(struct Vec *vec)
 {
-    if (vec__len == 0)
+    if (vec == NULL || vec__len == 0)
     {
         return VEC_ITEM_NONE;
     }
@@ -78,7 +82,7 @@ VecItem vec_pop(struct Vec *vec)
 
 VecItem vec_shift(struct Vec *vec)
 {
-    if (vec__len == 0)
+    if (vec == NULL || vec__len == 0)
     {
         return VEC_ITEM_NONE;
     }
@@ -99,10 +103,9 @@ VecItem vec_shift(struct Vec *vec)
     return item;
 }
 
-void vec_destroy(struct Vec *vec)
+void vec_destroy(struct Vec **vec)
 {
-    free(vec__data);
-    vec__len = 0;
-    vec__cap = 0;
-    free(vec);
+    free((*vec)->data);
+    free(*vec);
+    *vec = NULL;
 }
