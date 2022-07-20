@@ -26,18 +26,8 @@ add_executable(bst_tests bst_tests.cc)
 target_link_libraries(bst_tests gtest_main bst_lib)
 target_include_directories(bst_tests PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
-add_executable(modern_test modern_test.cc)
-target_link_libraries(modern_test gtest_main modern_lib)
-target_include_directories(modern_test PUBLIC ${PROJECT_SOURCE_DIR}/include)
-
-add_executable(noerr_test noerr_test.cc)
-target_link_libraries(noerr_test gtest_main noerr_lib)
-target_include_directories(noerr_test PUBLIC ${PROJECT_SOURCE_DIR}/include)
-
 include(GoogleTest)
 gtest_discover_tests(vec_tests)
 gtest_discover_tests(llist_tests)
 gtest_discover_tests(htable_tests)
 gtest_discover_tests(bst_tests)
-gtest_discover_tests(modern_test)
-gtest_discover_tests(noerr_test)

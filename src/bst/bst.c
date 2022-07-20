@@ -115,7 +115,6 @@ struct BSTNode *bst_remove(struct BSTNode *root, BSTItem item)
     return root;
 }
 
-// TODO LORIS: mock the free fn and expect it to be called n times?
 void bst_destroy(struct BSTNode *root)
 {
     if (root == NULL)
