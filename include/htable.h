@@ -40,7 +40,7 @@ struct HTableItem htable_search(struct HTable *ht, HTableKey key);
 /* Remove an item from the table; the key should be a non-empty null-terminated string */
 struct HTableItem htable_remove(struct HTable *ht, HTableKey key);
 
-/* Call fn on each element in the hash table */
+/* Call fn on each item in the hash table */
 void htable_traverse(struct HTable *ht, void (*fn)(struct HTableItem item));
 
 /* Delete the hash table (deallocate its memory) */

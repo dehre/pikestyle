@@ -39,7 +39,7 @@ LListItem llist_pop(struct LListNode **head_ptr);
 /* Remove a node from the back of the list */
 LListItem llist_shift(struct LListNode **head_ptr);
 
-/* Call fn on each node in the list */
+/* Call fn on each item in the list */
 void llist_traverse(struct LListNode *head, void (*fn)(LListItem item));
 
 /* Delete the list (deallocate memory for all its nodes) */

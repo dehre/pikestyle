@@ -33,7 +33,7 @@ VecItem vec_pop(struct Vec *vec);
 /* Remove an element from the front of the vector */
 VecItem vec_shift(struct Vec *vec);
 
-/* Call fn on each element in the vector */
+/* Call fn on each item in the vector */
 void vec_traverse(struct Vec *vec, void (*fn)(VecItem item));
 
 /* Delete the vector (deallocate its memory) */
