@@ -128,15 +128,8 @@ void bst_destroy(struct BSTNode **root)
     {
         return;
     }
-    // TODO LORIS: no need to check for null?
-    if ((*root)->left != NULL)
-    {
-        bst_destroy(&((*root)->left));
-    }
-    if ((*root)->right != NULL)
-    {
-        bst_destroy(&((*root)->right));
-    }
+    bst_destroy(&((*root)->left));
+    bst_destroy(&((*root)->right));
     free(*root);
     *root = NULL;
 }
