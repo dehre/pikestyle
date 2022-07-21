@@ -12,4 +12,4 @@ target_include_directories(htable_lib PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
 add_library(bst_lib bst.c)
 target_include_directories(bst_lib PUBLIC ${PROJECT_SOURCE_DIR}/include)
-# target_link_libraries(bst_lib PRIVATE some_other_lib)
+target_link_libraries(bst_lib PRIVATE vec_lib)

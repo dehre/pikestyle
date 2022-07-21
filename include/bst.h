@@ -28,12 +28,11 @@ struct BSTNode *bst_search(struct BSTNode *root, BSTItem item);
 /* Remove an item from the tree; the fn returns the new root */
 struct BSTNode *bst_remove(struct BSTNode *root, BSTItem item);
 
-// TODO LORIS: implementation
-/* Balance the tree */
-void bst_balance(struct BSTNode **root);
-
 /* Call fn on each item in the tree, from smaller to bigger */
 void bst_traverse(struct BSTNode *root, void (*fn)(BSTItem item));
 
 /* Delete the binary search tree (deallocate its memory) */
 void bst_destroy(struct BSTNode **root);
+
+/* Balance the tree */
+void bst_balance(struct BSTNode **root);

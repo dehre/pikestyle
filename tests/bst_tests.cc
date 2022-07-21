@@ -121,3 +121,33 @@ TEST(bst, bst_traverse)
 
     bst_destroy(&root);
 }
+
+TEST(bst, bst_balance)
+{
+    struct BSTNode *root = bst_new(0);
+    bst_insert(root, 12);
+    bst_insert(root, 24);
+    bst_insert(root, 36);
+    bst_insert(root, 48);
+    bst_insert(root, 60);
+    bst_insert(root, 72);
+
+    bst_balance(&root);
+
+    /* EXPECTED:
+          36
+        /    \
+      12      60
+     /  \    /  \
+    0   24  48  72 */
+
+    EXPECT_EQ(bst_item(root), 36);
+    struct BSTNode *root_left = bst_left(root);
+    struct BSTNode *root_right = bst_right(root);
+    EXPECT_EQ(bst_item(root_left), 12);
+    EXPECT_EQ(bst_item(bst_left(root_left)), 0);
+    EXPECT_EQ(bst_item(bst_right(root_left)), 24);
+    EXPECT_EQ(bst_item(root_right), 60);
+    EXPECT_EQ(bst_item(bst_left(root_right)), 48);
+    EXPECT_EQ(bst_item(bst_right(root_right)), 72);
+}

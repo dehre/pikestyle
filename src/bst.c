@@ -1,5 +1,6 @@
 #include "bst.h"
 
+#include "vec.h"
 #include <assert.h>
 #include <stdlib.h>
 
@@ -10,7 +11,15 @@ struct BSTNode
     struct BSTNode *right;
 };
 
+/* Find the node with minimum item; the fn is used by bst_remove */
 static struct BSTNode *findNodeWithMinItem(struct BSTNode *root);
+
+/* A vector of sorted items; the var and fn are used by bst_balance (they wouldn't be needed if C allowed closures) */
+static struct Vec *sortedItemsVec = NULL;
+static void sortedItemsVec_push(VecItem item);
+
+/* Create a new balanced tree recursively from a sorted vector of items; the fn is used by bst_balance */
+static struct BSTNode *newBSTFromSortedVec(struct Vec *vec, size_t lower_idx, size_t upper_idx);
 
 BSTItem bst_item(struct BSTNode *node)
 {
@@ -134,6 +143,16 @@ void bst_destroy(struct BSTNode **root)
     *root = NULL;
 }
 
+void bst_balance(struct BSTNode **root)
+{
+    sortedItemsVec = vec_new(8);
+    bst_traverse(*root, sortedItemsVec_push);
+    struct BSTNode *new_root = newBSTFromSortedVec(sortedItemsVec, 0, vec_len(sortedItemsVec) - 1);
+    vec_destroy(&sortedItemsVec);
+    bst_destroy(root);
+    *root = new_root;
+}
+
 static struct BSTNode *findNodeWithMinItem(struct BSTNode *root)
 {
     if (root == NULL)
@@ -145,4 +164,24 @@ static struct BSTNode *findNodeWithMinItem(struct BSTNode *root)
         return root;
     }
     return findNodeWithMinItem(root->left);
+}
+
+static void sortedItemsVec_push(VecItem item)
+{
+    vec_push(sortedItemsVec, item);
+}
+
+static struct BSTNode *newBSTFromSortedVec(struct Vec *vec, size_t lower_idx, size_t upper_idx)
+{
+    assert(vec != NULL);
+    size_t size = upper_idx - lower_idx + 1;
+    if (size == 0)
+    {
+        return NULL;
+    }
+    size_t mid_idx = size / 2 + lower_idx;
+    struct BSTNode *subtree_root = bst_new(vec_nth(vec, mid_idx));
+    subtree_root->left = newBSTFromSortedVec(vec, lower_idx, mid_idx - 1);
+    subtree_root->right = newBSTFromSortedVec(vec, mid_idx + 1, upper_idx);
+    return subtree_root;
 }
