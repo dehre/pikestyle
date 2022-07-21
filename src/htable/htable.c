@@ -97,6 +97,21 @@ struct HTableItem htable_remove(struct HTable *ht, HTableKey key)
     return item;
 }
 
+void htable_traverse(struct HTable *ht, void (*fn)(struct HTableItem item))
+{
+    if (ht == NULL)
+    {
+        return;
+    }
+    for (size_t i = 0; i < ht__cap; i++)
+    {
+        if (!htable_itemIsNone(ht__data[i]))
+        {
+            fn(ht__data[i]);
+        }
+    }
+}
+
 void htable_destroy(struct HTable **ht)
 {
     if (ht == NULL)

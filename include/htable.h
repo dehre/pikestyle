@@ -40,9 +40,8 @@ struct HTableItem htable_search(struct HTable *ht, HTableKey key);
 /* Remove an item from the table; the key should be a non-empty null-terminated string */
 struct HTableItem htable_remove(struct HTable *ht, HTableKey key);
 
-// TODO LORIS: implementation
 /* Call fn on each element in the hash table */
-void htable_traverse(struct HTable *ht, void *(*fn)(struct HTableItem item));
+void htable_traverse(struct HTable *ht, void (*fn)(struct HTableItem item));
 
 /* Delete the hash table (deallocate its memory) */
 void htable_destroy(struct HTable **ht);

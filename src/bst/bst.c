@@ -111,12 +111,24 @@ struct BSTNode *bst_remove(struct BSTNode *root, BSTItem item)
     return root;
 }
 
+void bst_traverse(struct BSTNode *root, void (*fn)(BSTItem item))
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    bst_traverse(root->left, fn);
+    fn(bst_item(root));
+    bst_traverse(root->right, fn);
+}
+
 void bst_destroy(struct BSTNode **root)
 {
     if (*root == NULL)
     {
         return;
     }
+    // TODO LORIS: no need to check for null?
     if ((*root)->left != NULL)
     {
         bst_destroy(&((*root)->left));

@@ -108,3 +108,30 @@ TEST(htable, htable_remove)
     EXPECT_EQ(htable_len(ht), 0);
     htable_destroy(&ht);
 }
+
+static unsigned int mockCallbackCalledTimes = 0;
+static HTableItem mockCallbackCalledWith[5] = {0};
+void mockCallback(HTableItem item)
+{
+    mockCallbackCalledWith[mockCallbackCalledTimes++] = item;
+}
+TEST(htable, htable_traverse)
+{
+    struct HTable *ht = htable_new();
+    htable_insert(ht, (struct HTableItem){.key = "a", .val = 12});
+    htable_insert(ht, (struct HTableItem){.key = "b", .val = 24});
+    htable_insert(ht, (struct HTableItem){.key = "c", .val = 36});
+    htable_insert(ht, (struct HTableItem){.key = "d", .val = 48});
+    htable_insert(ht, (struct HTableItem){.key = "e", .val = 60});
+    EXPECT_EQ(htable_len(ht), 5);
+
+    htable_traverse(ht, mockCallback);
+    EXPECT_EQ(mockCallbackCalledTimes, 5);
+    EXPECT_EQ(mockCallbackCalledWith[0].val, 12);
+    EXPECT_EQ(mockCallbackCalledWith[1].val, 24);
+    EXPECT_EQ(mockCallbackCalledWith[2].val, 36);
+    EXPECT_EQ(mockCallbackCalledWith[3].val, 48);
+    EXPECT_EQ(mockCallbackCalledWith[4].val, 60);
+
+    htable_destroy(&ht);
+}

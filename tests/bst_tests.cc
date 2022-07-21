@@ -96,3 +96,28 @@ TEST(bst, bst_remove)
 
     bst_destroy(&root);
 }
+
+static unsigned int mockCallbackCalledTimes = 0;
+static BSTItem mockCallbackCalledWith[5] = {0};
+void mockCallback(BSTItem item)
+{
+    mockCallbackCalledWith[mockCallbackCalledTimes++] = item;
+}
+TEST(bst, bst_traverse)
+{
+    struct BSTNode *root = bst_new(36);
+    bst_insert(root, 12);
+    bst_insert(root, 24);
+    bst_insert(root, 48);
+    bst_insert(root, 60);
+
+    bst_traverse(root, mockCallback);
+    EXPECT_EQ(mockCallbackCalledTimes, 5);
+    EXPECT_EQ(mockCallbackCalledWith[0], 12);
+    EXPECT_EQ(mockCallbackCalledWith[1], 24);
+    EXPECT_EQ(mockCallbackCalledWith[2], 36);
+    EXPECT_EQ(mockCallbackCalledWith[3], 48);
+    EXPECT_EQ(mockCallbackCalledWith[4], 60);
+
+    bst_destroy(&root);
+}
