@@ -103,6 +103,18 @@ VecItem vec_shift(struct Vec *vec)
     return item;
 }
 
+void vec_traverse(struct Vec *vec, void (*fn)(VecItem item))
+{
+    if (vec == NULL)
+    {
+        return;
+    }
+    for (size_t i = 0; i < vec__len; i++)
+    {
+        fn(vec__data[i]);
+    }
+}
+
 void vec_destroy(struct Vec **vec)
 {
     if (*vec == NULL)

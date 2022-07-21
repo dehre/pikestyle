@@ -109,3 +109,29 @@ TEST(llist, llist_shift)
 
     llist_destroy(&head);
 }
+
+static unsigned int mockCallbackCalledTimes = 0;
+static LListItem mockCallbackCalledWith[5] = {0};
+void mockCallback(LListItem item)
+{
+    mockCallbackCalledWith[mockCallbackCalledTimes++] = item;
+}
+TEST(llist, llist_traverse)
+{
+    struct LListNode *head = llist_new(12);
+    llist_push(&head, 24);
+    llist_push(&head, 36);
+    llist_push(&head, 48);
+    llist_push(&head, 60);
+    EXPECT_EQ(llist_len(head), 5);
+
+    llist_traverse(head, mockCallback);
+    EXPECT_EQ(mockCallbackCalledTimes, 5);
+    EXPECT_EQ(mockCallbackCalledWith[0], 12);
+    EXPECT_EQ(mockCallbackCalledWith[1], 24);
+    EXPECT_EQ(mockCallbackCalledWith[2], 36);
+    EXPECT_EQ(mockCallbackCalledWith[3], 48);
+    EXPECT_EQ(mockCallbackCalledWith[4], 60);
+
+    llist_destroy(&head);
+}

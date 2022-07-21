@@ -110,6 +110,20 @@ LListItem llist_shift(struct LListNode **head_ptr)
     return drainNode(tail);
 }
 
+void llist_traverse(struct LListNode *head, void (*fn)(LListItem item))
+{
+    if (head == NULL)
+    {
+        return;
+    }
+    struct LListNode *curr = llist_tail(head);
+    while (curr != NULL)
+    {
+        fn(llist_item(curr));
+        curr = curr->prev;
+    }
+}
+
 void llist_destroy(struct LListNode **head_ptr)
 {
     struct LListNode *curr = *head_ptr;

@@ -39,9 +39,8 @@ LListItem llist_pop(struct LListNode **head_ptr);
 /* Remove a node from the back of the list */
 LListItem llist_shift(struct LListNode **head_ptr);
 
-// TODO LORIS: implementation
 /* Call fn on each node in the list */
-void llist_traverse(struct LListNode *head, void *(*fn)(LListItem item));
+void llist_traverse(struct LListNode *head, void (*fn)(LListItem item));
 
 /* Delete the list (deallocate memory for all its nodes) */
 void llist_destroy(struct LListNode **head_ptr);

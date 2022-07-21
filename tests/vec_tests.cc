@@ -126,3 +126,30 @@ TEST(vec, vec_shift)
 
     vec_destroy(&vec);
 }
+
+static unsigned int mockCallbackCalledTimes = 0;
+static VecItem mockCallbackCalledWith[5] = {0};
+void mockCallback(VecItem item)
+{
+    mockCallbackCalledWith[mockCallbackCalledTimes++] = item;
+}
+TEST(vec, vec_traverse)
+{
+    struct Vec *vec = vec_new(5);
+    vec_push(vec, 12);
+    vec_push(vec, 24);
+    vec_push(vec, 36);
+    vec_push(vec, 48);
+    vec_push(vec, 60);
+    EXPECT_EQ(vec_len(vec), 5);
+
+    vec_traverse(vec, mockCallback);
+    EXPECT_EQ(mockCallbackCalledTimes, 5);
+    EXPECT_EQ(mockCallbackCalledWith[0], 12);
+    EXPECT_EQ(mockCallbackCalledWith[1], 24);
+    EXPECT_EQ(mockCallbackCalledWith[2], 36);
+    EXPECT_EQ(mockCallbackCalledWith[3], 48);
+    EXPECT_EQ(mockCallbackCalledWith[4], 60);
+
+    vec_destroy(&vec);
+}
