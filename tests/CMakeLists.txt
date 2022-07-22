@@ -14,6 +14,10 @@ add_executable(selectionsort_tests selectionsort_tests.cc)
 target_link_libraries(selectionsort_tests gtest_main selectionsort_lib)
 target_include_directories(selectionsort_tests PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
+add_executable(quicksort_tests quicksort_tests.cc)
+target_link_libraries(quicksort_tests gtest_main quicksort_lib)
+target_include_directories(quicksort_tests PUBLIC ${PROJECT_SOURCE_DIR}/include)
+
 add_executable(vec_tests vec_tests.cc)
 target_link_libraries(vec_tests gtest_main vec_lib)
 target_include_directories(vec_tests PUBLIC ${PROJECT_SOURCE_DIR}/include)
@@ -32,6 +36,7 @@ target_include_directories(bst_tests PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
 include(GoogleTest)
 gtest_discover_tests(selectionsort_tests)
+gtest_discover_tests(quicksort_tests)
 gtest_discover_tests(vec_tests)
 gtest_discover_tests(llist_tests)
 gtest_discover_tests(htable_tests)

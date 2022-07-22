@@ -2,4 +2,4 @@
 
 #include <stddef.h>
 
-void selectionsort(int arr[], size_t len);
+void selectionsort(int arr[], size_t arr_len);

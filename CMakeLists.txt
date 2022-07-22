@@ -48,6 +48,7 @@ add_subdirectory(src)
 add_executable(main apps/main.c)
 target_link_libraries(main PUBLIC
     selectionsort_lib
+    quicksort_lib
     vec_lib
     llist_lib
     htable_lib
