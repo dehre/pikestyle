@@ -1,3 +1,7 @@
+add_library(selectionsort_lib selectionsort.c)
+target_include_directories(selectionsort_lib PUBLIC ${PROJECT_SOURCE_DIR}/include)
+# target_link_libraries(selectionsort_lib PRIVATE some_other_lib)
+
 add_library(vec_lib vec.c)
 target_include_directories(vec_lib PUBLIC ${PROJECT_SOURCE_DIR}/include)
 # target_link_libraries(vec_lib PRIVATE some_other_lib)

@@ -110,6 +110,7 @@ LListItem llist_shift(struct LListNode **head_ptr)
     return drainNode(tail);
 }
 
+// TODO LORIS: traverse from head and update tests
 void llist_traverse(struct LListNode *head, void (*fn)(LListItem item))
 {
     if (head == NULL)

@@ -46,7 +46,12 @@ add_subdirectory(src)
 # Build the Executable
 # 
 add_executable(main apps/main.c)
-target_link_libraries(main PUBLIC vec_lib llist_lib htable_lib bst_lib)
+target_link_libraries(main PUBLIC
+    selectionsort_lib
+    vec_lib
+    llist_lib
+    htable_lib
+    bst_lib)
 
 # 
 # Build Tests
