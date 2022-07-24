@@ -2,7 +2,7 @@ add_library(selectionsort_lib selectionsort.c)
 target_include_directories(selectionsort_lib PUBLIC ${PROJECT_SOURCE_DIR}/include)
 # target_link_libraries(selectionsort_lib PRIVATE some_other_lib)
 
-add_library(quicksort_lib quicksort.c)
+add_library(quicksort_lib quicksort.c quicksort_easy.c)
 target_include_directories(quicksort_lib PUBLIC ${PROJECT_SOURCE_DIR}/include)
 # target_link_libraries(quicksort_lib PRIVATE some_other_lib)
 
