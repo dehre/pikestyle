@@ -127,11 +127,11 @@ TEST(llist, llist_traverse)
 
     llist_traverse(head, mockCallback);
     EXPECT_EQ(mockCallbackCalledTimes, 5);
-    EXPECT_EQ(mockCallbackCalledWith[0], 12);
-    EXPECT_EQ(mockCallbackCalledWith[1], 24);
+    EXPECT_EQ(mockCallbackCalledWith[0], 60);
+    EXPECT_EQ(mockCallbackCalledWith[1], 48);
     EXPECT_EQ(mockCallbackCalledWith[2], 36);
-    EXPECT_EQ(mockCallbackCalledWith[3], 48);
-    EXPECT_EQ(mockCallbackCalledWith[4], 60);
+    EXPECT_EQ(mockCallbackCalledWith[3], 24);
+    EXPECT_EQ(mockCallbackCalledWith[4], 12);
 
     llist_destroy(&head);
 }
