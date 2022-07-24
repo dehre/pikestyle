@@ -104,7 +104,7 @@ VecItem vec_shift(struct Vec *vec)
     return item;
 }
 
-void vec_traverse(struct Vec *vec, void (*fn)(VecItem item))
+void vec_traverse(const struct Vec *vec, void (*fn)(VecItem item))
 {
     if (vec == NULL)
     {

@@ -11,7 +11,7 @@ struct LListNode
 
 static LListItem drainNode(struct LListNode *node);
 
-LListItem llist_item(struct LListNode *node)
+LListItem llist_item(const struct LListNode *node)
 {
     if (node == NULL)
     {
@@ -44,14 +44,14 @@ struct LListNode *llist_tail(struct LListNode *head)
     return curr;
 }
 
-size_t llist_len(struct LListNode *head)
+size_t llist_len(const struct LListNode *head)
 {
     size_t count = 0;
     if (head == NULL)
     {
         return count;
     }
-    struct LListNode *curr = head;
+    const struct LListNode *curr = head;
     do
     {
         curr = curr->next;
@@ -110,13 +110,13 @@ LListItem llist_shift(struct LListNode **head_ptr)
     return drainNode(tail);
 }
 
-void llist_traverse(struct LListNode *head, void (*fn)(LListItem item))
+void llist_traverse(const struct LListNode *head, void (*fn)(LListItem item))
 {
     if (head == NULL)
     {
         return;
     }
-    struct LListNode *curr = head;
+    const struct LListNode *curr = head;
     do
     {
         fn(llist_item(curr));

@@ -13,7 +13,7 @@ typedef int LListItem;
 #define LLIST_ITEM_NONE INT_MIN
 
 /* Get the item from the node, without removing it */
-LListItem llist_item(struct LListNode *node);
+LListItem llist_item(const struct LListNode *node);
 
 /* Get the previous node from the list, without removing it */
 struct LListNode *llist_prev(struct LListNode *node);
@@ -25,7 +25,7 @@ struct LListNode *llist_next(struct LListNode *node);
 struct LListNode *llist_tail(struct LListNode *head);
 
 /* Get the length of the list */
-size_t llist_len(struct LListNode *head);
+size_t llist_len(const struct LListNode *head);
 
 /* Create a new doubly linked list */
 struct LListNode *llist_new(LListItem item);
@@ -40,7 +40,7 @@ LListItem llist_pop(struct LListNode **head_ptr);
 LListItem llist_shift(struct LListNode **head_ptr);
 
 /* Call fn on each item in the list */
-void llist_traverse(struct LListNode *head, void (*fn)(LListItem item));
+void llist_traverse(const struct LListNode *head, void (*fn)(LListItem item));
 
 /* Delete the list (deallocate memory for all its nodes) */
 void llist_destroy(struct LListNode **head_ptr);

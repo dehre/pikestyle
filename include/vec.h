@@ -35,7 +35,7 @@ VecItem vec_pop(struct Vec *vec);
 VecItem vec_shift(struct Vec *vec);
 
 /* Call fn on each item in the vector */
-void vec_traverse(struct Vec *vec, void (*fn)(VecItem item));
+void vec_traverse(const struct Vec *vec, void (*fn)(VecItem item));
 
 /* Sort the items in the vector */
 void vec_sort(struct Vec *vec);
