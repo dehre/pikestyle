@@ -8,7 +8,7 @@ typedef int BSTItem;
 #define BST_ITEM_NONE INT_MIN
 
 /* Get the item from the node, without removing it */
-BSTItem bst_item(struct BSTNode *node);
+BSTItem bst_item(const struct BSTNode *node);
 
 /* Get the previous node from the list, without removing it */
 struct BSTNode *bst_left(struct BSTNode *node);
@@ -29,7 +29,7 @@ struct BSTNode *bst_search(struct BSTNode *root, BSTItem item);
 struct BSTNode *bst_remove(struct BSTNode *root, BSTItem item);
 
 /* Call fn on each item in the tree, from smaller to bigger */
-void bst_traverse(struct BSTNode *root, void (*fn)(BSTItem item));
+void bst_traverse(const struct BSTNode *root, void (*fn)(BSTItem item));
 
 /* Delete the binary search tree (deallocate its memory) */
 void bst_destroy(struct BSTNode **root_ptr);

@@ -21,7 +21,7 @@ static void sortedItemsVec_push(VecItem item);
 /* Create a new balanced tree recursively from a sorted vector of items; the fn is used by bst_balance */
 static struct BSTNode *newBSTFromSortedVec(struct Vec *vec, size_t lower_idx, size_t upper_idx);
 
-BSTItem bst_item(struct BSTNode *node)
+BSTItem bst_item(const struct BSTNode *node)
 {
     return node == NULL ? BST_ITEM_NONE : node->item;
 }
@@ -120,7 +120,7 @@ struct BSTNode *bst_remove(struct BSTNode *root, BSTItem item)
     return root;
 }
 
-void bst_traverse(struct BSTNode *root, void (*fn)(BSTItem item))
+void bst_traverse(const struct BSTNode *root, void (*fn)(BSTItem item))
 {
     if (root == NULL)
     {

@@ -23,19 +23,19 @@ struct HTable
 /* The fn streql compares two strings for equality, even if they're NULL */
 static bool streql(const char *str1, const char *str2);
 
-static size_t findNextItemByKey(struct HTable *ht, HTableKey key, size_t start_idx);
+static size_t findNextItemByKey(const struct HTable *ht, HTableKey key, size_t start_idx);
 
 bool htable_itemIsNone(struct HTableItem item)
 {
     return item.key == NULL;
 }
 
-size_t htable_len(struct HTable *ht)
+size_t htable_len(const struct HTable *ht)
 {
     return ht == NULL ? 0 : ht__len;
 }
 
-size_t htable_cap(struct HTable *ht)
+size_t htable_cap(const struct HTable *ht)
 {
     return ht == NULL ? 0 : ht__cap;
 }
@@ -62,7 +62,7 @@ void htable_insert(struct HTable *ht, struct HTableItem item)
     ht__len++;
 }
 
-struct HTableItem htable_search(struct HTable *ht, HTableKey key)
+struct HTableItem htable_search(const struct HTable *ht, HTableKey key)
 {
     if (ht == NULL)
     {
@@ -97,7 +97,7 @@ struct HTableItem htable_remove(struct HTable *ht, HTableKey key)
     return item;
 }
 
-void htable_traverse(struct HTable *ht, void (*fn)(struct HTableItem item))
+void htable_traverse(const struct HTable *ht, void (*fn)(struct HTableItem item))
 {
     if (ht == NULL)
     {
@@ -141,7 +141,7 @@ static bool streql(const char *str1, const char *str2)
     return strcmp(str1, str2) == 0;
 }
 
-static size_t findNextItemByKey(struct HTable *ht, HTableKey key, size_t start_idx)
+static size_t findNextItemByKey(const struct HTable *ht, HTableKey key, size_t start_idx)
 {
     for (size_t i = 0; i < ht__cap; i++)
     {
