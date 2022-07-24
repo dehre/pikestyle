@@ -112,14 +112,14 @@ void htable_traverse(struct HTable *ht, void (*fn)(struct HTableItem item))
     }
 }
 
-void htable_destroy(struct HTable **ht)
+void htable_destroy(struct HTable **ht_ptr)
 {
-    if (ht == NULL)
+    if (*ht_ptr == NULL)
     {
         return;
     }
-    free((*ht)->data);
-    *ht = NULL;
+    free((*ht_ptr)->data);
+    *ht_ptr = NULL;
 }
 
 size_t htable_hash(const char *key)

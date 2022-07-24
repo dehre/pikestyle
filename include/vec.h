@@ -47,4 +47,4 @@ size_t vec_search(const struct Vec *vec, int x);
 size_t vec_binarysearch(const struct Vec *vec, int x);
 
 /* Delete the vector (deallocate its memory) */
-void vec_destroy(struct Vec **vec);
+void vec_destroy(struct Vec **vec_ptr);

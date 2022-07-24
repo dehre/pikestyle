@@ -110,7 +110,7 @@ TEST(htable, htable_remove)
 }
 
 static unsigned int mockCallbackCalledTimes = 0;
-static HTableItem mockCallbackCalledWith[5] = {0};
+static HTableItem mockCallbackCalledWith[5] = {};
 void mockCallback(HTableItem item)
 {
     mockCallbackCalledWith[mockCallbackCalledTimes++] = item;

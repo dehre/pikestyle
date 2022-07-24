@@ -16,7 +16,6 @@ struct HTableItem
     HTableKey key;
     HTableVal val;
 };
-
 #define HTABLE_ITEM_NONE ((struct HTableItem){.key = NULL})
 
 /* Check whether an item exists */
@@ -44,7 +43,7 @@ struct HTableItem htable_remove(struct HTable *ht, HTableKey key);
 void htable_traverse(struct HTable *ht, void (*fn)(struct HTableItem item));
 
 /* Delete the hash table (deallocate its memory) */
-void htable_destroy(struct HTable **ht);
+void htable_destroy(struct HTable **ht_ptr);
 
 /* Hash the key; the fn is exported for testing purposes only */
 size_t htable_hash(const char *key);

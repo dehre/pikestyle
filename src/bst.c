@@ -131,26 +131,26 @@ void bst_traverse(struct BSTNode *root, void (*fn)(BSTItem item))
     bst_traverse(root->right, fn);
 }
 
-void bst_destroy(struct BSTNode **root)
+void bst_destroy(struct BSTNode **root_ptr)
 {
-    if (*root == NULL)
+    if (*root_ptr == NULL)
     {
         return;
     }
-    bst_destroy(&((*root)->left));
-    bst_destroy(&((*root)->right));
-    free(*root);
-    *root = NULL;
+    bst_destroy(&((*root_ptr)->left));
+    bst_destroy(&((*root_ptr)->right));
+    free(*root_ptr);
+    *root_ptr = NULL;
 }
 
-void bst_balance(struct BSTNode **root)
+void bst_balance(struct BSTNode **root_ptr)
 {
     sortedItemsVec = vec_new(8);
-    bst_traverse(*root, sortedItemsVec_push);
+    bst_traverse(*root_ptr, sortedItemsVec_push);
     struct BSTNode *new_root = newBSTFromSortedVec(sortedItemsVec, 0, vec_len(sortedItemsVec) - 1);
     vec_destroy(&sortedItemsVec);
-    bst_destroy(root);
-    *root = new_root;
+    bst_destroy(root_ptr);
+    *root_ptr = new_root;
 }
 
 static struct BSTNode *findNodeWithMinItem(struct BSTNode *root)

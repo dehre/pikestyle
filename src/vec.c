@@ -150,13 +150,13 @@ size_t vec_binarysearch(const struct Vec *vec, int x)
     return binarysearch(vec__data, vec__len, x);
 }
 
-void vec_destroy(struct Vec **vec)
+void vec_destroy(struct Vec **vec_ptr)
 {
-    if (*vec == NULL)
+    if (*vec_ptr == NULL)
     {
         return;
     }
-    free((*vec)->data);
-    free(*vec);
-    *vec = NULL;
+    free((*vec_ptr)->data);
+    free(*vec_ptr);
+    *vec_ptr = NULL;
 }

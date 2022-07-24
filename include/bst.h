@@ -32,7 +32,7 @@ struct BSTNode *bst_remove(struct BSTNode *root, BSTItem item);
 void bst_traverse(struct BSTNode *root, void (*fn)(BSTItem item));
 
 /* Delete the binary search tree (deallocate its memory) */
-void bst_destroy(struct BSTNode **root);
+void bst_destroy(struct BSTNode **root_ptr);
 
 /* Balance the tree */
-void bst_balance(struct BSTNode **root);
+void bst_balance(struct BSTNode **root_ptr);
