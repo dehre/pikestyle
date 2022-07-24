@@ -49,6 +49,7 @@ add_executable(main apps/main.c)
 target_link_libraries(main PUBLIC
     selectionsort_lib
     quicksort_lib
+    binarysearch_lib
     vec_lib
     llist_lib
     htable_lib
