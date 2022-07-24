@@ -3,6 +3,8 @@
 static int partition(int arr[], int low_idx, int high_idx);
 static void swap(int *a, int *b);
 
+// TODO LORIS: use size_t for indexes, and partition from right to left of the array
+// TODO LORIS: remove type casting in vec.c
 void quicksort(int arr[], int low_idx, int high_idx)
 {
     if (low_idx < high_idx)

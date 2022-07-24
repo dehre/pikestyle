@@ -1,5 +1,6 @@
 #include "vec.h"
 
+#include "quicksort.h"
 #include <assert.h>
 #include <stdlib.h>
 
@@ -113,6 +114,40 @@ void vec_traverse(struct Vec *vec, void (*fn)(VecItem item))
     {
         fn(vec__data[i]);
     }
+}
+
+void vec_sort(struct Vec *vec)
+{
+    if (vec == NULL)
+    {
+        return;
+    }
+    quicksort(vec__data, 0, (int)vec__len - 1);
+}
+
+size_t vec_search(const struct Vec *vec, int x)
+{
+    if (vec == NULL)
+    {
+        return SEARCH_IDX_NONE;
+    }
+    for (size_t i = 0; i < vec__len; i++)
+    {
+        if (vec__data[i] == x)
+        {
+            return i;
+        }
+    }
+    return SEARCH_IDX_NONE;
+}
+
+size_t vec_binarysearch(const struct Vec *vec, int x)
+{
+    if (vec == NULL)
+    {
+        return SEARCH_IDX_NONE;
+    }
+    return binarysearch(vec__data, vec__len, x);
 }
 
 void vec_destroy(struct Vec **vec)

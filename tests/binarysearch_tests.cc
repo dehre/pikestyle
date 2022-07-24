@@ -11,5 +11,5 @@ TEST(search, binarysearch)
     EXPECT_EQ(binarysearch(arr, 10, -21), 0);
     EXPECT_EQ(binarysearch(arr, 10, 46), 6);
     EXPECT_EQ(binarysearch(arr, 10, 123), 9);
-    EXPECT_EQ(binarysearch(arr, 10, 8), BINARYSEARCH_IDX_NONE);
+    EXPECT_EQ(binarysearch(arr, 10, 8), SEARCH_IDX_NONE);
 }

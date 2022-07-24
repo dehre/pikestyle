@@ -21,5 +21,5 @@ size_t binarysearch(const int arr[], size_t arr_len, int x)
             high_idx = mid_idx - 1;
         }
     }
-    return BINARYSEARCH_IDX_NONE;
+    return SEARCH_IDX_NONE;
 }

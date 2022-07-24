@@ -153,3 +153,56 @@ TEST(vec, vec_traverse)
 
     vec_destroy(&vec);
 }
+
+TEST(vec, vec_sort)
+{
+    struct Vec *vec = vec_new(5);
+    vec_push(vec, 48);
+    vec_push(vec, 24);
+    vec_push(vec, 60);
+    vec_push(vec, 12);
+    vec_push(vec, 36);
+
+    vec_sort(vec);
+    EXPECT_EQ(vec_nth(vec, 0), 12);
+    EXPECT_EQ(vec_nth(vec, 1), 24);
+    EXPECT_EQ(vec_nth(vec, 2), 36);
+    EXPECT_EQ(vec_nth(vec, 3), 48);
+    EXPECT_EQ(vec_nth(vec, 4), 60);
+
+    vec_destroy(&vec);
+}
+
+TEST(vec, vec_search)
+{
+    struct Vec *vec = vec_new(5);
+    vec_push(vec, 48);
+    vec_push(vec, 24);
+    vec_push(vec, 60);
+    vec_push(vec, 12);
+    vec_push(vec, 36);
+
+    EXPECT_EQ(vec_search(vec, 48), 0);
+    EXPECT_EQ(vec_search(vec, 60), 2);
+    EXPECT_EQ(vec_search(vec, 36), 4);
+    EXPECT_EQ(vec_search(vec, 17), SEARCH_IDX_NONE);
+
+    vec_destroy(&vec);
+}
+
+TEST(vec, vec_binarysearch)
+{
+    struct Vec *vec = vec_new(5);
+    vec_push(vec, 12);
+    vec_push(vec, 24);
+    vec_push(vec, 36);
+    vec_push(vec, 48);
+    vec_push(vec, 60);
+
+    EXPECT_EQ(vec_binarysearch(vec, 12), 0);
+    EXPECT_EQ(vec_binarysearch(vec, 36), 2);
+    EXPECT_EQ(vec_binarysearch(vec, 60), 4);
+    EXPECT_EQ(vec_binarysearch(vec, 17), SEARCH_IDX_NONE);
+
+    vec_destroy(&vec);
+}
