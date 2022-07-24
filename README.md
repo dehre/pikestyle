@@ -1,97 +1,136 @@
-# C Project Template
+# Pikestyle
 
-My take on setting up a nice environment for developing **C** (no C++) on MacOS.
+I found [Notes on Programming in C](http://doc.cat-v.org/bell_labs/pikestyle) - aka *pikestyle* - is a very interesting read.  
+The section on *Complexity* is perhaps the most interesting one:
 
-## Features
-- **CMake**
+> Most programs are too complicated - that is, more complex than they need to be to solve their problems efficiently.  Why? Mostly it's because of bad design, but I will skip that issue here because it's a big one.  But programs are often complicated at the microscopic level, and that is something I can address here.
+>
+> &nbsp;&nbsp;&nbsp;&nbsp;**Rule 1.**  You can't tell where a program is going to spend its time.  Bottlenecks occur in surprising places, so don't try to second guess and put in a speed hack until you've proven that's where the bottleneck is.
+>
+> &nbsp;&nbsp;&nbsp;&nbsp;**Rule 2.**  Measure.  Don't tune for speed until you've measured, and even then don't unless one part of the code overwhelms the rest.
+>
+> &nbsp;&nbsp;&nbsp;&nbsp;**Rule 3.**  Fancy algorithms are slow when n is small, and n is usually small.  Fancy algorithms have big constants. Until you know that n is frequently going to be big, don't get fancy.  (Even if n does get big, use Rule 2 first.)   For example, binary trees are always faster than splay trees for workaday problems.
+>
+> &nbsp;&nbsp;&nbsp;&nbsp;**Rule 4.**  Fancy algorithms are buggier than simple ones, and they're much harder to implement.  Use simple algorithms as well as simple data structures.
+>
+> &nbsp;&nbsp;&nbsp;&nbsp;The following data structures are a complete list for almost all practical programs:
+>
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array  
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;linked list  
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hash table  
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;binary tree  
+>
+> &nbsp;&nbsp;&nbsp;&nbsp;Of course, you must also be prepared to collect these into compound data structures.  For instance, a symbol table might be implemented as a hash table containing linked lists of arrays of characters.
+>
+> &nbsp;&nbsp;&nbsp;&nbsp;**Rule 5.**  Data dominates.  If you've chosen the right data structures and organized things well, the algorithms will almost always be self-evident.  Data structures, not algorithms, are central to programming.  (See The Mythical Man-Month: Essays on Software Engineering by F. P. Brooks, page 102.)
+>
+> &nbsp;&nbsp;&nbsp;&nbsp;**Rule 6.**  There is no Rule 6.
 
-    Like it or not, it's the [most widely used tool for building C](https://www.jetbrains.com/lp/devecosystem-2021/c).  
-    Without reinventing the wheel, I followed the project structure recommended by this [book](https://cliutils.gitlab.io/modern-cmake/chapters/basics/structure.html).
+<br/>
 
-- **googletest**
+Rob Pike states that those four data structures are enough for almost all practical purposes, to which I agree.
 
-  Again, [most popular tool](https://www.jetbrains.com/lp/devecosystem-2021/c), so I sticked to it.  
-    The setup with CMake was a [breeze](https://google.github.io/googletest/quickstart-cmake.html).  
-    Truth being told, the most popular unit-testing framework is "I don't write unit tests for C", followed by "I write unit tests, but I don't use any framework", which [you may decide to believe](https://www.commitstrip.com/en/2017/02/08/where-are-the-tests/?).
+In that spirit, I decided implement them from scratch in C, along with a few useful algorithms for sorting arrays (`selection sort` and `quicksort`)
+and searching through them efficiently (`binary search`).
 
-- **clang-tidy**
+*NOTE:* arrays are built-ins in C, so I went for [vectors](https://en.cppreference.com/w/cpp/container/vector), a contiguous growable array type allocated on the heap.
 
-    Static-analysis tool that catches a good amount of mistakes at copmile-time.  
-    Unfortunately, it doesn't come preinstalled on Mac, but you can [work it around](#requirements).
+## Time Complexity
 
-- **Sanitizers**
+The time complexities for each data structure:  
 
-    Address Sanitizer (ASan), Undefined Behaviour Sanitizer (UBSan), and Thread Sanitizer (TSan) for runtime analysis.  
-    [Here](https://github.com/google/sanitizers) and [here](https://developer.apple.com/documentation/xcode/diagnosing-memory-thread-and-crash-issues-early) for more info.
-    
-- **Remote-Containers**
+|   Data Structure   | Avg Access | Avg Search | Avg Insertion | Avg Deletion | Worst Access | Worst Search | Worst Insertion | Worst Deletion |
+|:------------------:|:----------:|:----------:|:-------------:|:------------:|:------------:|:------------:|:---------------:|:--------------:|
+|       Vector       |    O(1)    |    O(n)    |      O(1)     |     O(1)     |     O(1)     |     O(n)     |       O(1)      |      O(1)      |
+| Doubly Linked List |    O(n)    |    O(n)    |      O(1)     |     O(1)     |     O(n)     |     O(n)     |       O(1)      |      O(1)      |
+|     Hash Table     |      /     |    O(1)    |      O(1)     |     O(1)     |       /      |     O(n)     |       O(n)      |      O(n)      |
+| Binary Search Tree |  O(log(n)) |  O(log(n)) |   O(log(n))   |   O(log(n))  |     O(n)     |     O(n)     |       O(n)      |      O(n)      |
 
-    Thanks to the [VSCode Remote Containers extension](https://code.visualstudio.com/docs/remote/containers), you can try your application in a Docker container running Ubuntu `20.4`.
+The time complexities for the sorting algorithms:  
 
-- **valgrind, strace, ltrace**
+|    Algorithm   |     Avg     |  Worst |
+|:--------------:|:-----------:|:------:|
+| Selection Sort |    O(n^2)   | O(n^2) |
+|    Quicksort   | O(n*log(n)) | O(n^2) |
 
-    These tools aren't available on Mac, but you can use them inside the Docker container.  
-    You may use that Docker image to play around with `gcc` and `gdb` too.
 
-## Requirements
+*NOTE:* the time complexity for searching through a sorted vector drops down to `O(log(n))` if `binary search` is used.
 
-Install these programs on your machine:
+## Sparse Notes
 
-- CMake
-- Docker
-- clang-tidy
+**Simplicity & Readability**
 
-PS: To install `clang-tidy`, install `llvm` with Homebrew first, then add this alias to the `.bashrc`:
+First and most important note, this repo isn't meant to be used as a library!  
+It aims at showcasing how the data structures and algorithms can be implemented in the most simple and readable way,
+and can be used as reference for more robust implementations, that also deal with failed memory allocations and generic data types.
 
-```sh
-alias clang-tidy='/opt/homebrew/opt/llvm/bin/clang-tidy'
-```
+**Generics**
 
-Then install these VSCode extensions:
-
-- ms-vscode.cpptools
-- ms-vscode.cmake-tools
-- ms-vscode-remote.remote-containers
-
-## How to use it
-  
-Everything should work out of the box: building, running, tests, and using the integrated debugger.  
-If you're not familiar with the VSCode extension [cmake-tools](https://github.com/microsoft/vscode-cmake-tools),
-this [tutorial](https://code.visualstudio.com/docs/cpp/cmake-linux#_select-a-kit) will help you with the first steps.
-
-If you want to develop using the remote container, open the Command Palette and type `Remote-Containers: Reopen in Container` (the Docker daemon should be running already).  
-Then delete the `build` directory, and build the project again.
-
-Finally, for strace, ltrace, and valgrind, open the remote container and:
-
-```sh
-valgrind path-to-executable
-strace path-to-executable
-ltrace path-to-executable
-gdb path-to-executable
-```
-
-## FAQ
-
-### googletest isn't in C
-
-Indeed, but for most use cases [it's all macros](https://github.com/google/googletest/tree/main/googletest/samples) and doesn't look much different from regular C code.
-
-## Others
-
-- A very good list of compiler warnings you may want to add:  
-http://fastcompression.blogspot.com/2019/01/compiler-warnings.html
-
-- Here's a tiny program that you can use to try out the Address Sanitizer.  
-  Copy it into `apps/main.c`, select the `Asan` [variant](https://github.com/microsoft/vscode-cmake-tools/blob/main/docs/variants.md), build, and run it.
+C doesn't provide generics ([actually it does, but...](https://jameshfisher.com/2017/08/19/c-generic/) that's not what I was looking for).  
+The most common approach is heavily based on macros, but it harms readability.  
+For this reason, types in this project have been hardcoded.  
 
 ```c
-#include <stdlib.h>
+typedef int BSTItem;
 
-int main()
+struct BSTNode
 {
-    int *x = malloc(10 * sizeof(int));
-    free(x);
-    return x[5];
-}
+    BSTItem item;
+    struct BSTNode *left;
+    struct BSTNode *right;
+};
 ```
+
+**Error Handling**
+
+Still in pursue of readability, error handling has been in part neglected.  
+Adding error handling would have meant either giving functions an odd signature (e.g. have the function [return an error code and pass in a pointer to a location to return the result](https://stackoverflow.com/questions/291828/what-is-the-best-way-to-return-an-error-from-a-function-when-im-already-returni)) or taking [the `errno` approach](https://www.youtube.com/watch?v=IZiUT-ipnj0).
+
+That said, the functions deal gracefully with the most common API misuses (e.g. adding an item to a non-existent binary search tree returns immediately) and sometimes call `assert` on less-obvious issues.  
+Memory allocations, instead, aren't checked for failure.
+
+**Testing**
+
+[GoogleTest](https://google.github.io/googletest/) has been used as testing and mocking framework.  
+It's a C++ library, but it doesn't require special C++ jargon for simple assertions.
+
+Unfortunately, I came to partially regret this decision.  
+The problem I stumbled upon is with mocking.  
+When you pass a function pointer as argument, such as:
+
+```c
+void vec_traverse(const struct Vec *vec, void (*fn)(VecItem item));
+```
+
+it's difficult to mock `fn` with C++ and GoogleTest, because the former [requires](https://isocpp.org/wiki/faq/pointers-to-members#memfnptr-vs-fnptr) a [static method](https://isocpp.org/wiki/faq/pointers-to-members#fnptr-vs-memfnptr-types), and the latter doesn't provide an easy way of mocking it.
+
+I ended up with [tracking the number of calls to `fn` by incrementing a `static` variable](https://github.com/dehre/pikestyle/blob/main/tests/vec_tests.cc#L134), but that wasn't very beautiful.  
+I will evaluate the libraries suggested here for future projects: https://interrupt.memfault.com/blog/unit-test-mocking#cc-mocking-libraries
+
+**Hash Tables & collisions**
+
+There are a lot of different types and a ton of different optimizations you can do on Hash Tables, but usually they're described as
+an array of linked lists, used for handling collisions, indexed by a hash function.  
+Linked lists, however, tend to be relatively [slow](https://baptiste-wicht.com/posts/2012/11/cpp-benchmark-vector-vs-list.html); plus, given the lack of generics in C, they would require a specialized implementation where each item is a `struct {const char* key; int value}`.
+
+For dealing with collisions, I chose *linear probing* instead, which is simpler, faster, and requires only an array/vector.  
+In short, if we're trying to insert an item into the array but the slot isn't empty, we search for the next empty one and insert the item there.
+
+**Hash Tables, again**
+
+A couple of notes more:
+
+1. The keys have been chosen to be of type `const char *`, which assumes the strings are stored in read-only memory and doesn't require
+   dealing with variables whose lifetime is possibly shorter than the lifetime of the Hash Table itself.   
+
+2. This Hash Table implementation doesn't resize according to its load factor: the underlying array is of fixed size, and when it's full,
+   it simply doesn't allow new items to be inserted anymore.
+
+**Balancing the Binary Search Tree**
+
+The overall performance of a BST degrades from `O(log(n))` to `O(n)` when not balanced.  
+The approach that fn `bst_balance` takes to re-balance the tree is quite straightforward:
+
+1. collect the tree's items into a Vector in ascending order
+2. starting from the middle of the Vector (which becomes the new root), recursively create a new balanced tree
+3. deallocate the Vector and the old BST
