@@ -44,8 +44,8 @@ add_subdirectory(src)
 # 
 # Build the Executable
 # 
-add_executable(main apps/main.c)
-target_link_libraries(main PUBLIC
+add_executable(pikestyle apps/main.c)
+target_link_libraries(pikestyle PUBLIC
     selectionsort_lib
     quicksort_lib
     binarysearch_lib
@@ -54,4 +54,7 @@ target_link_libraries(main PUBLIC
     htable_lib
     bst_lib)
 
-install(TARGETS main)
+#
+# Install the Executable
+#
+install(TARGETS pikestyle)
