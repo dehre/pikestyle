@@ -53,3 +53,5 @@ target_link_libraries(main PUBLIC
     llist_lib
     htable_lib
     bst_lib)
+
+install(TARGETS main)
