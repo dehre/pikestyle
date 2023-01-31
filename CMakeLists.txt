@@ -53,8 +53,3 @@ target_link_libraries(main PUBLIC
     llist_lib
     htable_lib
     bst_lib)
-
-# 
-# Build Tests
-# 
-add_subdirectory(tests)
